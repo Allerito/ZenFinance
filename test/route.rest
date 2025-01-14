@@ -2,7 +2,7 @@ GET http://localhost:3000/users
 
 ###
 
-GET http://localhost:3000/users/mimi
+GET http://localhost:3000/users/677ef638b7cae1ac5c2ac980
 
 ###
 
@@ -10,20 +10,24 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "username": "mimi",
-    "email": "mimi@gmail.com",
+    "username": "Allerito",
+    "email": "allera.ruben.04@gmail.com",
     "password": "password"
 }
 
 ###
 
-DELETE http://localhost:3000/users/mimi
+DELETE http://localhost:3000/users/6781a1de2bdc78404b16e3fe
 
 ###
 
-PATCH http://localhost:3000/users/677eeba516d5de2715335efc
+PATCH http://localhost:3000/users/677ef647b7cae1ac5c2ac982
 Content-Type: application/json
 
 {
-    "username": "Ruben"
+    "username": "ciao"
 }
+
+###
+
+GET http://localhost:3000/users/6780306df672f54a4e818996/wallet

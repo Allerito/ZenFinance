@@ -1,11 +1,14 @@
-const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
+const User = require('../models/user');
 
-const Users = mongoose.connection.collection('Users');
+const usersCollection = mongoose.connection.collection('users');
 
+// Users CRUD
 const getUsers = async (req, res) => {
     try {
-        const users = await Users.find().toArray();
+        const users = await usersCollection.find().toArray();
         res.send(users);
     } catch (error) {
         res.status(500).json({message: error.message});
@@ -13,38 +16,30 @@ const getUsers = async (req, res) => {
 };
 
 const getUser = (req, res) => {
-    res.json(res.user);
+    res.render('dashboard', res.user);
 };
 
 const createUser = async (req, res) => {
     const user = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: await cryptData(req.body.password)
     });
 
     try {
-        const newUser = await Users.insertOne(user);
-        res.status(201).json(newUser);
+        res.status(201).json(await usersCollection.insertOne(user));
     } catch (error) {
         res.status(400).json({message: error.message});
     }
 };
 
 const updateUser = async (req, res) => {
-    if (req.body.username != null) {
-        res.user.username = req.body.username;
-    }
-    if (req.body.email != null) {
-        res.user.email = req.body.email;
-    }
-    if (req.body.password != null) {
-        res.user.password = req.body.password;
+    if (req.body.password) {
+        req.body.password = await cryptData(req.body.password);
     }
 
     try {
-        const updatedUser = await res.user.save();
-        res.json(updatedUser);
+        res.json(await usersCollection.updateOne(res.user, {$set: req.body}));
     } catch (error) {
         res.status(400).json({message: error.message});
     }
@@ -52,18 +47,23 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        await Users.findOneAndDelete(res.user)
+        await usersCollection.findOneAndDelete(res.user);
         res.json({message: 'User deleted'});
     } catch (error) {
         res.status(500).json({message: error.message});
     }
 };
 
-async function getUserByUsername(req, res, next) {
+// User info
+const getUserWallet = (req, res) => {
+    res.json(res.user.wallet);
+};
+
+async function getUserById(req, res, next) {
     let user;
     try {
-        user = await Users.findOne({username: req.params.username});
-        if (user == null) {
+        user = await usersCollection.findOne(ObjectId.createFromHexString(req.params.id));
+        if (!user) {
             return res.status(404).json({message: 'User not found'});
         }
     } catch (error) {
@@ -73,11 +73,17 @@ async function getUserByUsername(req, res, next) {
     next();
 }
 
+async function cryptData(dataToCrypt) {
+    const saltNumber = await bcrypt.genSalt(10);
+    return await bcrypt.hash(dataToCrypt, saltNumber);
+}
+
 module.exports = {
     getUsers,
-    getUserByUsername,
+    getUserById,
     getUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserWallet
 };

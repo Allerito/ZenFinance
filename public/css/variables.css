@@ -1,0 +1,10 @@
+:root {
+    --gray: #908C91;
+    --white: #EEE5E9;
+    --dark-gray: #333333;
+
+    --font-family: "Noto Sans Mono", serif;
+    --font-text-weight: 300;
+    --font-subtitle-weight: 500;
+    --font-title-weight: 700;
+}
