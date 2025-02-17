@@ -1,31 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
-    <script src="/javascript/index.js" defer></script>
-    <title>Login Page</title>
+  <title>Sign In/Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/sign.css">
+  <script src="/javascript/sign.js" defer></script>
 </head>
+
 <body>
-    <h2>SignUp</h2>
-    <div class="signup-container">
-        <form action="/users/" method="POST">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">SignUp</button>
-        </form>
-        <a href="/login">Already registered?</a>
+  <div class="container">
+    <div class="blueBg">
+      <div class="box singIn">
+        <h2>Already have an account?</h2>
+        <button class="signInBtn" id="signInBtn">Sign In</button>
+      </div>
+      <div class="box singUp">
+        <h2>Don't have an account?</h2>
+        <button class="signUpBtn" id="signUpBtn">Sign Up</button>
+      </div>
     </div>
+    <div class="formBox" id="formBox">
+      <div class="form signInForm">
+        <form onsubmit="userLogin(event)" id="signInForm">
+          <h3>Sign In</h3>
+            <input type="email" name="logEmail" placeholder="Email" required>
+            <div>
+              <input type="password" name="logPassword" placeholder="Password" required>
+              <img src="/images/visibility.svg" width="24" height="24" class="toggle-password" onclick="togglePasswordVisibility()">
+            </div>
+          <input type="submit" value="Login">
+          <a href="#" class="forgot">Forgot password?</a>
+        </form>
+      </div>
+
+      <div class="form signUpForm">
+        <form onsubmit="userRegister(event)" id="signUpForm">
+          <h3>Sign Up</h3>
+          <input type="text" name="registerUsername" placeholder="Username" required>
+          <input type="email" name="registerEmail" placeholder="Email" required>
+          <input type="password" name="registerPassword" placeholder="Password" required>
+          <input type="password" name="registerConfirmPassword" placeholder="Confirm password" required>
+          <input type="submit" value="Register">
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

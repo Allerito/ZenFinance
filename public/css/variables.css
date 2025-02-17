@@ -1,6 +1,7 @@
 :root {
     --gray: #908C91;
     --white: #EEE5E9;
+    --shadow-color: rgba(0,0,0,0.15);
     --dark-gray: #333333;
 
     --font-family: "Noto Sans Mono", serif;

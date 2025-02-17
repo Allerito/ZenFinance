@@ -1,17 +1,17 @@
 const bcrypt = require('bcrypt');
-const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const { use } = require('../routes/users');
 
 const usersCollection = mongoose.connection.collection('users');
 
-// Users CRUD
-const getUsers = async (req, res) => {
-    try {
-        const users = await usersCollection.find().toArray();
-        res.send(users);
-    } catch (error) {
-        res.status(500).json({message: error.message});
+const userLogin = async (req, res) => {
+    const user = await usersCollection.findOne({email: req.query.email});
+    if(user && await bcrypt.compare(req.query.password, user.password)) {
+        res.status(200).json(user);
+    }
+    else {
+        res.status(400).json({message: 'Wrong credential'});
     }
 };
 
@@ -59,10 +59,10 @@ const getUserWallet = (req, res) => {
     res.json(res.user.wallet);
 };
 
-async function getUserById(req, res, next) {
+async function getUserByEmail(req, res, next) {
     let user;
     try {
-        user = await usersCollection.findOne(ObjectId.createFromHexString(req.params.id));
+        user = await usersCollection.findOne({email: req.params.email});
         if (!user) {
             return res.status(404).json({message: 'User not found'});
         }
@@ -79,8 +79,8 @@ async function cryptData(dataToCrypt) {
 }
 
 module.exports = {
-    getUsers,
-    getUserById,
+    userLogin,
+    getUserByEmail,
     getUser,
     createUser,
     updateUser,

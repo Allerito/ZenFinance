@@ -1,80 +1,196 @@
 @import url('./variables.css');
 
-body {
-    background-color: var(--dark-gray);
-    color: var(--white);
-    font-family: var(--font-family);
-    font-weight: var(--font-text-weight);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans Mono", serif;
 }
 
-h2 {
-    font-weight: var(--font-title-weight);
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #03a9f4;
+    transition: 0.5s;
+}
+
+body.active {
+    background: #f43648;
 }
 
 .container {
-    background-color: var(--gray);
+    position: relative;
+    width: 800px;
+    height: 500px;
+    margin: 20px;
+}
+
+.blueBg {
     position: absolute;
-    border-radius: 25px;
-
-    height: 30vw;
-    width: 27vw;
-
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
-    align-items: center;
     justify-content: center;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    height: 100%;
+    top: 40px;
     width: 100%;
+    height: 420px;
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 5px 45px rgba(0,0,0,0.15);
 }
 
-.password-forgot {
-    align-self: flex-start;
-    justify-self: end;
+.blueBg .box {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-.email {
-    padding: 5px;
-    padding-left: 30px;
-    width: 60%;
-
-    background: url("../images/email.svg") no-repeat left;
-    background-size: 20px;
-    background-position: 5px;
+.blueBg .box h2 {
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 10px;
 }
 
-.password {
-    padding: 5px;
-    padding-left: 30px;
-    width: 60%;
-
-    background: url("../images/password.svg") no-repeat left;
-    background-size: 20px;
-    background-position: 5px;
+.blueBg .box button {
+    cursor: pointer;
+    padding: 10px 20px;
+    background: #fff;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
 }
 
-.email:focus,
-.password:focus {
-    outline: none;
-    box-shadow: none;
+.formBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 45px rgba(0,0,0,0.25);
+    transition: 0.5s ease-in-out;
+    overflow: hidden;
 }
 
-.submit {
-    width: 60%;
+.formBox.active {
+    left: 50%;
 }
 
-.submit:hover {
+.formBox .form {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 50px;
+    transition: 0.5s;
+}
+
+.formBox .signInForm {
+    transition-delay: 0.25s;
+}
+
+.formBox.active .signInForm {
+    left: -100%;
+    transition-delay: 0s;
+}
+
+.toggle-password {
+    left: 80%;
+    top: 30%;
     cursor: pointer;
 }
 
-.container form a {
-    color: wheat;
+.formBox .signUpForm {
+    left: 100%;
+    transition-delay: 0s;
+}
+
+.formBox.active .signUpForm {
+    left: 0;
+    transition-delay: 0.25s;
+}
+
+.formBox .form form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.formBox .form form h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.formBox .form form input {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    outline: none;
+    font-size: 16px;
+    border: 1px solid #333;
+}
+
+.formBox .form form input[type="submit"] {
+    background: #03a9f4;
+    border: none;
+    color: #fff;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.formBox.active .signUpForm input[type="submit"] {
+    background: #f43648;
+}
+
+.formBox .form form .forgot {
+    color: #333;
+}
+
+@media (max-width: 991px) and (orientation: portrait) {
+    .container {
+        max-width: 400px;
+        height: 650px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container .blueBg {
+        top: 0;
+        height: 100%;
+    }
+
+    .formBox {
+        width: 100%;
+        height: 500px;
+        top: 0;
+        box-shadow: none;
+    }
+
+    .blueBg .box {
+        position: absolute;
+        width: 100%;
+        height: 150px;
+        bottom: 0;
+    }
+
+    .box.singIn {
+        top: 0;
+    }
+
+    .formBox.active {
+        left: 0;
+        top: 150px;
+    }
 }
