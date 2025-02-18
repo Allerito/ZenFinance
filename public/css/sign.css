@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Noto Sans Mono", serif;
+    font-family: "Noto Sans Mono";
 }
 
 body {
@@ -104,9 +104,9 @@ body.active {
 }
 
 .toggle-password {
-    left: 80%;
-    top: 30%;
+    position: absolute;
     cursor: pointer;
+    margin-left: 5px;
 }
 
 .formBox .signUpForm {
@@ -193,4 +193,39 @@ body.active {
         left: 0;
         top: 150px;
     }
+}
+
+.password-reset {
+    position: relative;
+    display: inline-block;
+}
+
+.forgot-password-link {
+    cursor: pointer;
+}
+
+.password-reset-form {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    margin-top: 3px;
+}
+
+.email-input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.reset-password-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
 }

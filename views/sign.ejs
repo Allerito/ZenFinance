@@ -24,13 +24,19 @@
       <div class="form signInForm">
         <form onsubmit="userLogin(event)" id="signInForm">
           <h3>Sign In</h3>
-            <input type="email" name="logEmail" placeholder="Email" required>
+            <input type="email" name="logEmail" placeholder="Email">
             <div>
-              <input type="password" name="logPassword" placeholder="Password" required>
-              <img src="/images/visibility.svg" width="24" height="24" class="toggle-password" onclick="togglePasswordVisibility()">
+              <input type="password" id="logPassword" name="logPassword" placeholder="Password">
+              <img src="/images/visibility.svg" width="32" height="40" id="logTogglePassword" class="toggle-password" onclick="logTogglePasswordVisibility()">
             </div>
           <input type="submit" value="Login">
-          <a href="#" class="forgot">Forgot password?</a>
+          <div class="password-reset">
+            <a href="#" class="forgot-password-link" onclick="openForgotPasswordForm()">Forgot password?</a>
+            <div id="passwordResetForm" class="password-reset-form" style="display: none;">
+              <input type="email" id="resetEmail" class="reset-email" placeholder="Email">
+              <button class="reset-password-button" onclick="resetPassword()">Reset Password</button>
+            </div>
+          </div>
         </form>
       </div>
 
@@ -39,8 +45,11 @@
           <h3>Sign Up</h3>
           <input type="text" name="registerUsername" placeholder="Username" required>
           <input type="email" name="registerEmail" placeholder="Email" required>
-          <input type="password" name="registerPassword" placeholder="Password" required>
-          <input type="password" name="registerConfirmPassword" placeholder="Confirm password" required>
+          <div>
+            <input type="password" id="registerPassword" name="registerPassword" placeholder="Password" required>
+            <input type="password" id="registerConfirmPassword" name="registerConfirmPassword" placeholder="Confirm password" required>
+            <img src="/images/redVisibility.svg" width="32" height="40" id="registerTogglePassword" class="toggle-password" onclick="registerTogglePasswordVisibility()">
+          </div>
           <input type="submit" value="Register">
         </form>
       </div>

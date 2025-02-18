@@ -6,8 +6,9 @@ const { use } = require('../routes/users');
 const usersCollection = mongoose.connection.collection('users');
 
 const userLogin = async (req, res) => {
-    const user = await usersCollection.findOne({email: req.query.email});
-    if(user && await bcrypt.compare(req.query.password, user.password)) {
+    console.log(req.body);
+    const user = await usersCollection.findOne({email: req.body.email});
+    if(user && await bcrypt.compare(req.body.password, user.password)) {
         res.status(200).json(user);
     }
     else {

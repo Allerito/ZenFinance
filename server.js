@@ -20,10 +20,6 @@ app.get('/', (req, res) => {
     res.render('index', {name: 'MIMMA'});
 })
 
-app.get('/login', (req, res) => {
-    res.render('login');
-})
-
 app.get('/sign', (req, res) => {
     res.render('sign');
 })
